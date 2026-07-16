@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shree Vinayak Hospital – Advanced Orthopedic & Spine Care, Bhopal</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --blue:#0A2540;--sky:#00AEEF;--red:#E63329;--white:#FFFFFF;
+  --gray:#F5F8FA;--text:#1A1A2E;--muted:#6B7280;--border:#E5E7EB;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeInLeft{from{opacity:0;transform:translateX(-40px);}to{opacity:1;transform:translateX(0);}}
+@keyframes fadeInRight{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:scale(1);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:0.6;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+@keyframes spinSlow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}  }
+@keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes ringPulse{0%{box-shadow:0 0 0 0 rgba(0,174,239,0.4);}70%{box-shadow:0 0 0 14px rgba(0,174,239,0);}100%{box-shadow:0 0 0 0 rgba(0,174,239,0);}}
+@keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes particleFloat{0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0.7;}50%{transform:translateY(-60px) translateX(20px) rotate(180deg);opacity:0.3;}100%{transform:translateY(-120px) translateX(-10px) rotate(360deg);opacity:0;}}
+@keyframes drawLine{from{stroke-dashoffset:1000;}to{stroke-dashoffset:0;}}
+@keyframes heartbeat{0%,100%{transform:scale(1);}14%{transform:scale(1.1);}28%{transform:scale(1);}42%{transform:scale(1.1);}70%{transform:scale(1);}}
+
+/* Scroll-triggered animations */
+.anim-on-scroll{opacity:0;transition:opacity 0.7s ease, transform 0.7s ease;}
+.anim-on-scroll.from-bottom{transform:translateY(40px);}
+.anim-on-scroll.from-left{transform:translateX(-40px);}
+.anim-on-scroll.from-right{transform:translateX(40px);}
+.anim-on-scroll.scale-in{transform:scale(0.9);}
+.anim-on-scroll.visible{opacity:1;transform:none;}
+.delay-1{transition-delay:0.1s!important;}
+.delay-2{transition-delay:0.2s!important;}
+.delay-3{transition-delay:0.3s!important;}
+.delay-4{transition-delay:0.4s!important;}
+.delay-5{transition-delay:0.5s!important;}
+.delay-6{transition-delay:0.6s!important;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,37,64,0.96);backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:68px;
+  border-bottom:1px solid rgba(0,174,239,0.15);
+  animation:slideDown 0.6s ease both;
+}
+.nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer;}
+.nav-logo-svg{animation:heartbeat 2.5s ease-in-out infinite;}
+.nav-logo-text strong{display:block;font-family:'Poppins',sans-serif;font-size:0.98rem;font-weight:700;color:var(--sky);}
+.nav-logo-text span{font-size:0.67rem;color:#94A3B8;letter-spacing:0.05em;}
+.nav-links{display:flex;gap:2px;align-items:center;}
+.nav-links a{
+  color:#CBD5E1;text-decoration:none;font-size:0.8rem;font-weight:500;
+  padding:7px 11px;border-radius:7px;cursor:pointer;
+  transition:color 0.2s, background 0.2s, transform 0.15s;letter-spacing:0.02em;
+}
+.nav-links a:hover{color:var(--sky);background:rgba(0,174,239,0.1);transform:translateY(-1px);}
+.nav-links a.active{color:var(--sky);background:rgba(0,174,239,0.12);}
+.nav-emergency{
+  background:var(--red);color:var(--white);border:none;
+  padding:8px 16px;border-radius:8px;font-size:0.78rem;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;gap:6px;
+  text-decoration:none;animation:ringPulse 2s infinite;transition:background 0.2s,transform 0.2s;
+}
+.nav-emergency:hover{background:#c62820;transform:scale(1.04);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s;}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(10,37,64,0.98);backdrop-filter:blur(14px);z-index:99;padding:14px 5% 22px;flex-direction:column;gap:4px;animation:slideDown 0.3s ease both;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:#CBD5E1;text-decoration:none;padding:11px 14px;border-radius:8px;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.mobile-menu a:hover{color:var(--sky);background:rgba(0,174,239,0.1);}
+
+/* ── EMERGENCY BAR ── */
+.emergency-bar{
+  background:linear-gradient(90deg,#c62820,var(--red),#c62820);
+  background-size:200% 100%;animation:gradientShift 3s linear infinite;
+  padding:11px 5%;text-align:center;
+  font-family:'Poppins',sans-serif;font-weight:700;color:var(--white);font-size:0.82rem;
+  letter-spacing:0.04em;position:relative;overflow:hidden;
+}
+.emergency-bar a{color:var(--white);text-decoration:none;}
+.emergency-bar::before{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+  animation:shimmer 2.5s infinite;
+}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding-top:68px;}
+.page.active{display:block;}
+
+/* ── HERO ── */
+.hero{
+  min-height:calc(100vh - 68px);
+  background:linear-gradient(135deg,#040d1a 0%,#0A2540 45%,#0d355e 100%);
+  display:flex;align-items:center;position:relative;overflow:hidden;
+}
+/* Animated particles */
+.hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.particle{
+  position:absolute;width:4px;height:4px;border-radius:50%;
+  background:var(--sky);animation:particleFloat linear infinite;
+}
+/* Animated grid */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,174,239,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,174,239,0.05) 1px,transparent 1px);
+  background-size:60px 60px;
+  animation:fadeIn 2s ease;
+}
+/* Glowing orbs */
+.hero-orb1{
+  position:absolute;top:-15%;right:-5%;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,174,239,0.18) 0%,transparent 65%);
+  animation:float 6s ease-in-out infinite;
+}
+.hero-orb2{
+  position:absolute;bottom:-15%;left:15%;width:450px;height:450px;border-radius:50%;
+  background:radial-gradient(circle,rgba(230,51,41,0.12) 0%,transparent 65%);
+  animation:float 8s ease-in-out infinite reverse;
+}
+/* Rotating ring */
+.hero-ring{
+  position:absolute;right:8%;top:50%;transform:translateY(-50%);
+  width:380px;height:380px;border-radius:50%;
+  border:1px dashed rgba(0,174,239,0.2);
+  animation:spinSlow 40s linear infinite;display:flex;align-items:center;justify-content:center;
+}
+.hero-ring-inner{
+  width:280px;height:280px;border-radius:50%;
+  border:1px dashed rgba(0,174,239,0.15);
+  animation:spinSlow 25s linear infinite reverse;
+}
+
+.hero-content{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;align-items:center;
+  gap:60px;width:100%;max-width:1280px;margin:0 auto;padding:80px 5%;
+}
+.hero-left{animation:fadeInLeft 0.9s ease both;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,174,239,0.12);border:1px solid rgba(0,174,239,0.25);
+  color:var(--sky);padding:7px 16px;border-radius:20px;font-size:0.73rem;font-weight:700;
+  margin-bottom:22px;letter-spacing:0.09em;text-transform:uppercase;
+}
+.badge-dot{width:7px;height:7px;background:var(--sky);border-radius:50%;animation:pulseDot 1.8s infinite;}
+.hero-title{
+  font-family:'Poppins',sans-serif;font-size:clamp(2rem,4vw,3.3rem);
+  font-weight:800;color:var(--white);line-height:1.12;margin-bottom:18px;
+}
+.hero-title .sky{
+  color:var(--sky);
+  background:linear-gradient(135deg,#00AEEF,#00d4ff,#00AEEF);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradientShift 3s linear infinite;
+}
+.hero-title .red{color:var(--red);}
+.hero-sub{color:#94A3B8;font-size:0.95rem;line-height:1.8;margin-bottom:32px;max-width:480px;}
+.hero-stats{display:flex;gap:28px;margin-bottom:38px;flex-wrap:wrap;}
+.stat{border-left:3px solid var(--sky);padding-left:16px;}
+.stat-num{
+  font-family:'Poppins',sans-serif;font-size:1.65rem;font-weight:800;color:var(--white);
+  line-height:1;
+}
+.stat-label{font-size:0.7rem;color:#94A3B8;text-transform:uppercase;letter-spacing:0.07em;margin-top:3px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* ── HERO RIGHT CARD ── */
+.hero-right{animation:fadeInRight 0.9s ease 0.2s both;display:flex;justify-content:center;}
+.hero-card{
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  border-radius:22px;padding:30px;backdrop-filter:blur(20px);
+  max-width:320px;width:100%;
+  box-shadow:0 0 60px rgba(0,174,239,0.08);
+  animation:float 5s ease-in-out infinite;
+}
+.hero-card-logo{
+  width:72px;height:72px;
+  background:linear-gradient(135deg,var(--sky),#009ad4);
+  border-radius:50%;margin:0 auto 16px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:800;color:var(--white);
+  box-shadow:0 0 0 8px rgba(0,174,239,0.1),0 0 30px rgba(0,174,239,0.3);
+  animation:ringPulse 2.5s infinite;
+}
+.hero-card h3{font-family:'Poppins',sans-serif;color:var(--white);font-size:1rem;text-align:center;font-weight:700;}
+.hero-card p{color:#64748B;font-size:0.75rem;text-align:center;margin:4px 0 22px;}
+.hc-item{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,0.04);border-radius:9px;padding:9px 12px;margin-bottom:7px;
+  transition:background 0.2s,transform 0.2s;border:1px solid rgba(255,255,255,0.04);
+}
+.hc-item:hover{background:rgba(0,174,239,0.1);transform:translateX(4px);}
+.hc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.hc-item span{color:#CBD5E1;font-size:0.78rem;}
+
+/* ── FEATURES STRIP ── */
+.features-strip{
+  background:linear-gradient(90deg,var(--sky),#009ad4);
+  padding:0;overflow:hidden;
+}
+.features-strip-inner{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.feature-item{
+  text-align:center;padding:18px 10px;
+  border-right:1px solid rgba(255,255,255,0.25);
+  transition:background 0.25s,transform 0.25s;cursor:default;
+  position:relative;overflow:hidden;
+}
+.feature-item:hover{background:rgba(255,255,255,0.15);transform:translateY(-2px);}
+.feature-item:last-child{border-right:none;}
+.feature-item .fi-icon{font-size:1.4rem;margin-bottom:4px;display:block;}
+.feature-item strong{display:block;color:var(--white);font-size:0.92rem;font-weight:700;}
+.feature-item span{color:rgba(255,255,255,0.85);font-size:0.7rem;}
+
+/* ── BUTTONS ── */
+.btn-primary{
+  background:linear-gradient(135deg,var(--sky),#009ad4);color:var(--white);
+  padding:13px 26px;border-radius:10px;font-weight:600;font-size:0.88rem;cursor:pointer;
+  text-decoration:none;border:none;display:inline-flex;align-items:center;gap:8px;
+  transition:all 0.25s;box-shadow:0 4px 16px rgba(0,174,239,0.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,174,239,0.45);}
+.btn-outline{
+  background:transparent;color:var(--white);padding:13px 26px;
+  border-radius:10px;font-weight:600;font-size:0.88rem;cursor:pointer;
+  text-decoration:none;border:2px solid rgba(255,255,255,0.25);display:inline-flex;align-items:center;gap:8px;
+  transition:all 0.25s;
+}
+.btn-outline:hover{border-color:var(--sky);color:var(--sky);transform:translateY(-2px);}
+
+/* ── SECTION ── */
+.section{padding:80px 5%;}
+.section-inner{max-width:1280px;margin:0 auto;}
+.section-label{color:var(--sky);font-size:0.73rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.section-label::before{content:'';width:24px;height:2px;background:var(--sky);border-radius:2px;}
+.section-title{font-family:'Poppins',sans-serif;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:800;color:var(--blue);margin-bottom:14px;line-height:1.2;}
+.section-title span{color:var(--sky);}
+.section-desc{color:var(--muted);font-size:0.93rem;line-height:1.85;max-width:560px;}
+
+/* ── SPECIALTY CARDS ── */
+.specialties-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;}
+.specialty-card{
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:16px;padding:28px;transition:all 0.3s;cursor:default;
+  position:relative;overflow:hidden;
+}
+.specialty-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--sky),#009ad4);
+  transform:scaleX(0);transition:transform 0.3s;transform-origin:left;
+}
+.specialty-card:hover{border-color:transparent;box-shadow:0 12px 40px rgba(0,174,239,0.14);transform:translateY(-5px);}
+.specialty-card:hover::before{transform:scaleX(1);}
+.specialty-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin-bottom:16px;transition:transform 0.3s;}
+.specialty-card:hover .specialty-icon{transform:scale(1.12) rotate(-5deg);}
+.specialty-card h3{font-family:'Poppins',sans-serif;font-size:0.93rem;font-weight:700;color:var(--blue);margin-bottom:8px;}
+.specialty-card p{font-size:0.8rem;color:var(--muted);line-height:1.65;}
+
+/* ── DOCTOR CARDS ── */
+.doctors-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;}
+.doctor-card{
+  background:var(--white);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;
+  transition:all 0.3s;
+}
+.doctor-card:hover{border-color:var(--sky);box-shadow:0 16px 48px rgba(0,174,239,0.14);transform:translateY(-6px);}
+.doctor-card-top{
+  background:linear-gradient(135deg,var(--blue),#0D3560);
+  padding:32px 24px 24px;text-align:center;position:relative;overflow:hidden;
+}
+.doctor-card-top::after{
+  content:'';position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);
+  width:180%;height:60px;background:var(--white);border-radius:50%;
+}
+.doctor-avatar{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 12px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:var(--white);
+  border:3px solid rgba(255,255,255,0.2);transition:transform 0.3s,box-shadow 0.3s;
+  position:relative;z-index:1;
+}
+.doctor-card:hover .doctor-avatar{transform:scale(1.08);box-shadow:0 0 0 6px rgba(0,174,239,0.2);}
+.doctor-card-top h3{font-family:'Poppins',sans-serif;color:var(--white);font-size:0.98rem;font-weight:700;position:relative;z-index:1;}
+.doctor-card-top p{color:var(--sky);font-size:0.76rem;margin-top:4px;position:relative;z-index:1;}
+.doctor-card-body{padding:22px 24px;}
+.doctor-qual{font-size:0.77rem;color:var(--muted);margin-bottom:8px;line-height:1.55;}
+.doctor-exp{display:inline-block;background:rgba(0,174,239,0.1);color:var(--sky);padding:3px 11px;border-radius:12px;font-size:0.72rem;font-weight:700;}
+.doctor-timing{font-size:0.76rem;color:var(--sky);margin-top:10px;font-weight:600;}
+
+/* ── FACILITIES ── */
+.facilities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;}
+.facility-card{
+  background:var(--gray);border-radius:14px;padding:22px;text-align:center;
+  transition:all 0.3s;border:1.5px solid transparent;
+}
+.facility-card:hover{border-color:var(--sky);background:rgba(0,174,239,0.05);transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,174,239,0.1);}
+.facility-icon{font-size:2.2rem;margin-bottom:10px;display:block;transition:transform 0.3s;}
+.facility-card:hover .facility-icon{transform:scale(1.2) rotate(5deg);}
+.facility-card h4{font-family:'Poppins',sans-serif;font-size:0.83rem;font-weight:700;color:var(--blue);}
+.facility-card p{font-size:0.74rem;color:var(--muted);margin-top:4px;}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:36px;}
+.timeline::before{content:'';position:absolute;left:12px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--sky),var(--red));border-radius:2px;}
+.timeline-item{position:relative;margin-bottom:32px;}
+.timeline-dot{
+  position:absolute;left:-28px;top:4px;width:14px;height:14px;
+  background:var(--sky);border-radius:50%;border:3px solid var(--white);
+  box-shadow:0 0 0 3px rgba(0,174,239,0.25);transition:transform 0.3s;
+}
+.timeline-item:hover .timeline-dot{transform:scale(1.3);}
+.timeline-year{font-family:'Poppins',sans-serif;font-weight:800;color:var(--sky);font-size:0.88rem;margin-bottom:5px;}
+.timeline-text{font-size:0.88rem;color:var(--text);line-height:1.65;}
+
+/* ── GALLERY ── */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;}
+.gallery-item{
+  border-radius:12px;overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;
+  background:var(--gray);border:1.5px solid var(--border);
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.gallery-item:hover{transform:scale(1.03);box-shadow:0 12px 36px rgba(0,0,0,0.15);}
+.gallery-item img,.gallery-item video{width:100%;height:100%;object-fit:cover;display:block;}
+.gallery-item .overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(10,37,64,0.7),rgba(0,174,239,0.5));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  opacity:0;transition:opacity 0.25s;
+}
+.gallery-item:hover .overlay{opacity:1;}
+.overlay-icon{font-size:2rem;animation:scaleIn 0.2s ease;}
+.overlay-caption{color:white;font-size:0.78rem;font-weight:600;padding:0 12px;text-align:center;}
+.gallery-placeholder-empty{
+  grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted);
+}
+.gallery-placeholder-empty .ph-icon{font-size:3.5rem;margin-bottom:14px;opacity:0.5;}
+
+/* ── LIGHTBOX ── */
+.lightbox{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,0.92);align-items:center;justify-content:center;
+  animation:fadeIn 0.2s ease;
+}
+.lightbox.open{display:flex;}
+.lightbox-img{max-width:90vw;max-height:88vh;border-radius:12px;object-fit:contain;animation:scaleIn 0.25s ease;}
+.lightbox-close{
+  position:fixed;top:20px;right:24px;background:rgba(255,255,255,0.1);
+  border:none;color:white;width:40px;height:40px;border-radius:50%;
+  font-size:1.3rem;cursor:pointer;transition:background 0.2s;
+}
+.lightbox-close:hover{background:var(--red);}
+
+/* ── PATIENT EDUCATION ── */
+.learn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;}
+.learn-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.3s;}
+.learn-card:hover{border-color:var(--sky);box-shadow:0 12px 36px rgba(0,174,239,0.12);transform:translateY(-5px);}
+.learn-card-top{
+  background:linear-gradient(135deg,var(--gray),#e0f2fd);
+  padding:22px;font-size:2.8rem;text-align:center;min-height:96px;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.3s;
+}
+.learn-card:hover .learn-card-top{background:linear-gradient(135deg,rgba(0,174,239,0.1),rgba(0,174,239,0.2));}
+.learn-card-body{padding:20px;}
+.learn-cat{display:inline-block;background:rgba(0,174,239,0.1);color:var(--sky);padding:2px 10px;border-radius:10px;font-size:0.7rem;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;}
+.learn-card-body h3{font-family:'Poppins',sans-serif;font-size:0.93rem;font-weight:700;color:var(--blue);margin-bottom:7px;}
+.learn-card-body p{font-size:0.8rem;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.learn-read{color:var(--sky);font-size:0.82rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:gap 0.2s;}
+.learn-read:hover{gap:9px;}
+.filter-btn{padding:8px 18px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:var(--muted);font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;}
+.filter-btn.active,.filter-btn:hover{background:var(--sky);color:var(--white);border-color:var(--sky);}
+
+/* ── LEARN MODAL ── */
+.modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.2s ease;}
+.modal.open{display:flex;}
+.modal-inner{
+  background:var(--white);border-radius:18px;max-width:680px;width:100%;
+  max-height:88vh;overflow-y:auto;padding:36px;position:relative;
+  animation:scaleIn 0.25s ease;
+}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--gray);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1.1rem;transition:background 0.2s;color:var(--text);}
+.modal-close:hover{background:var(--red);color:white;}
+.modal-cat{display:inline-block;background:rgba(0,174,239,0.1);color:var(--sky);padding:3px 12px;border-radius:12px;font-size:0.73rem;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;}
+.modal-title{font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:800;color:var(--blue);margin-bottom:16px;}
+.modal-body{font-size:0.88rem;color:var(--text);line-height:1.85;}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.contact-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;}
+.contact-icon{width:44px;height:44px;background:rgba(0,174,239,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;transition:all 0.3s;}
+.contact-item:hover .contact-icon{background:var(--sky);transform:scale(1.1);}
+.contact-item h4{font-family:'Poppins',sans-serif;font-size:0.83rem;font-weight:700;color:var(--blue);margin-bottom:4px;}
+.contact-item p,.contact-item a{font-size:0.83rem;color:var(--muted);text-decoration:none;line-height:1.65;}
+.contact-item a:hover{color:var(--sky);}
+.timings-table{width:100%;border-collapse:collapse;margin-top:6px;}
+.timings-table td{padding:4px 8px;font-size:0.8rem;color:var(--muted);}
+.timings-table td:first-child{font-weight:600;color:var(--blue);}
+.contact-form{background:var(--gray);border-radius:18px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,0.05);}
+.contact-form h3{font-family:'Poppins',sans-serif;font-size:1.05rem;font-weight:700;color:var(--blue);margin-bottom:20px;}
+.fgroup{margin-bottom:14px;}
+.fgroup label{display:block;font-size:0.78rem;font-weight:600;color:var(--blue);margin-bottom:5px;}
+.fgroup input,.fgroup select,.fgroup textarea{
+  width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;
+  font-size:0.84rem;font-family:'Inter',sans-serif;color:var(--text);background:var(--white);
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(0,174,239,0.1);}
+.fgroup textarea{resize:vertical;min-height:80px;}
+.form-submit{
+  width:100%;background:linear-gradient(135deg,var(--sky),#009ad4);color:var(--white);
+  border:none;padding:13px;border-radius:9px;font-weight:700;font-size:0.9rem;
+  cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.25s;
+  box-shadow:0 4px 16px rgba(0,174,239,0.3);
+}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,174,239,0.4);}
+
+/* ── ABOUT ── */
+.about-visual{
+  background:linear-gradient(135deg,var(--blue),#0D3560);
+  border-radius:20px;padding:36px;color:var(--white);position:relative;overflow:hidden;
+}
+.about-visual::before{
+  content:'';position:absolute;top:-40%;right:-30%;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(0,174,239,0.15),transparent 70%);border-radius:50%;
+}
+.about-visual h3{font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:700;color:var(--sky);margin-bottom:8px;}
+.about-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+.about-list li{display:flex;gap:12px;align-items:flex-start;font-size:0.84rem;line-height:1.6;color:#CBD5E1;transition:color 0.2s;}
+.about-list li:hover{color:white;}
+.about-list li::before{content:'✓';color:var(--sky);font-weight:800;flex-shrink:0;margin-top:1px;}
+.highlight-box{background:rgba(0,174,239,0.08);border-left:4px solid var(--sky);border-radius:0 12px 12px 0;padding:16px 20px;margin:20px 0;}
+.highlight-box p{color:var(--blue);font-size:0.87rem;font-weight:500;line-height:1.7;margin:0;font-style:italic;}
+
+/* ── STATS COUNTER ── */
+.counter-section{
+  background:linear-gradient(135deg,var(--blue),#0D3560);
+  padding:64px 5%;position:relative;overflow:hidden;
+}
+.counter-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,174,239,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,174,239,0.05) 1px,transparent 1px);background-size:50px 50px;}
+.counter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:32px;max-width:1280px;margin:0 auto;position:relative;z-index:1;}
+.counter-item{text-align:center;}
+.counter-num{font-family:'Poppins',sans-serif;font-size:2.6rem;font-weight:800;color:var(--sky);line-height:1;}
+.counter-suffix{font-family:'Poppins',sans-serif;font-size:1.5rem;color:var(--red);font-weight:800;}
+.counter-label{font-size:0.78rem;color:#94A3B8;text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;}
+
+/* ── CTA BANNER ── */
+.cta-section{
+  background:linear-gradient(135deg,var(--blue) 0%,#0D3560 50%,#0A2540 100%);
+  padding:70px 5%;text-align:center;position:relative;overflow:hidden;
+}
+.cta-section::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,174,239,0.1),transparent 65%);border-radius:50%;}
+
+/* ── FOOTER ── */
+footer{background:var(--blue);color:#94A3B8;padding:52px 5% 24px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1280px;margin:0 auto 40px;}
+.footer-brand h3{font-family:'Poppins',sans-serif;color:var(--white);font-size:1.05rem;margin-bottom:8px;}
+.footer-brand p{font-size:0.8rem;line-height:1.75;margin-bottom:14px;}
+.footer-col h4{font-family:'Poppins',sans-serif;color:var(--white);font-size:0.83rem;margin-bottom:14px;letter-spacing:0.04em;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul li a{color:#94A3B8;text-decoration:none;font-size:0.8rem;cursor:pointer;transition:color 0.2s,padding-left 0.2s;}
+.footer-col ul li a:hover{color:var(--sky);padding-left:4px;}
+.footer-bottom{max-width:1280px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.07);padding-top:20px;display:flex;justify-content:space-between;font-size:0.76rem;flex-wrap:wrap;gap:8px;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hero-content{grid-template-columns:1fr;gap:40px;}
+  .hero-right,.hero-ring{display:none;}
+  .contact-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .features-strip-inner{grid-template-columns:repeat(2,1fr);}
+  .nav-links,.nav-emergency{display:none;}
+  .hamburger{display:flex;}
+}
+@media(max-width:600px){
+  .features-strip-inner{grid-template-columns:1fr 1fr;}
+  .hero-stats{gap:18px;}
+  .footer-grid{grid-template-columns:1fr;}
+  .counter-grid{grid-template-columns:1fr 1fr;}
+  .section{padding:56px 5%;}
+}
+</style>
+</head>
+<body>
+
+<!-- EMERGENCY BAR -->
+<div class="emergency-bar">
+  🚨 24×7 Emergency — <a href="tel:+917554222943">+91 755 422 2943</a> &nbsp;|&nbsp; <a href="tel:+917389105302">+91 738 910 5302</a> &nbsp;|&nbsp; हड्डी और कमर के इलाज का भरोसेमंद अस्पताल
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    <svg class="nav-logo-svg" width="44" height="44" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="white"/>
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#00AEEF" stroke-width="4"/>
+      <path d="M50 8 Q85 8 85 38 Q85 72 50 92 Q15 72 15 38 Q15 8 50 8Z" fill="none" stroke="#E63329" stroke-width="2.5" opacity="0.6"/>
+      <rect x="35" y="27" width="13" height="32" rx="3" fill="#E63329"/>
+      <rect x="27" y="35" width="21" height="13" rx="3" fill="#E63329"/>
+      <rect x="48" y="35" width="21" height="13" rx="3" fill="#00AEEF"/>
+      <rect x="53" y="27" width="13" height="32" rx="3" fill="#00AEEF"/>
+    </svg>
+    <div class="nav-logo-text">
+      <strong>Shree Vinayak Hospital</strong>
+      <span>Advanced Orthopedic & Spine Care, Bhopal</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+    <a onclick="showPage('about')" id="nav-about">About</a>
+    <a onclick="showPage('specialties')" id="nav-specialties">Specialties</a>
+    <a onclick="showPage('doctors')" id="nav-doctors">Doctors</a>
+    <a onclick="showPage('gallery')" id="nav-gallery">Gallery</a>
+    <a onclick="showPage('learn')" id="nav-learn">Patient Education</a>
+    <a onclick="showPage('contact')" id="nav-contact">Contact</a>
+  </div>
+  <a href="tel:+917554222943" class="nav-emergency">📞 Emergency</a>
+  <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="showPage('home');toggleMobile()">🏠 Home</a>
+  <a onclick="showPage('about');toggleMobile()">🏥 About</a>
+  <a onclick="showPage('specialties');toggleMobile()">🩺 Specialties</a>
+  <a onclick="showPage('doctors');toggleMobile()">👨‍⚕️ Doctors</a>
+  <a onclick="showPage('gallery');toggleMobile()">🖼️ Gallery</a>
+  <a onclick="showPage('learn');toggleMobile()">📚 Patient Education</a>
+  <a onclick="showPage('contact');toggleMobile()">📍 Contact</a>
+</div>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-orb1"></div>
+    <div class="hero-orb2"></div>
+    <div class="hero-ring"><div class="hero-ring-inner"></div></div>
+
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-badge"><span class="badge-dot"></span>Bhopal's Trusted Spine & Ortho Centre</div>
+        <h1 class="hero-title">
+          Advanced Care for<br>
+          <span class="sky">Spine & Bone</span><br>
+          <span class="red">Surgeries</span>
+        </h1>
+        <p class="hero-sub">Shree Vinayak Hospital is a doctor-owned, doctor-run 55-bed multispecialty hospital in Kolar, Bhopal — delivering precision spine, orthopaedic & reconstructive surgeries since 2018.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-num" data-count="55">0</div><div class="stat-label">Beds</div></div>
+          <div class="stat"><div class="stat-num">2018</div><div class="stat-label">Established</div></div>
+          <div class="stat"><div class="stat-num">24×7</div><div class="stat-label">Emergency</div></div>
+          <div class="stat"><div class="stat-num" data-count="6">0</div><div class="stat-label">Specialties</div></div>
+        </div>
+        <div class="hero-btns">
+          <a class="btn-primary" onclick="showPage('contact')">📅 Book Appointment</a>
+          <a class="btn-outline" onclick="showPage('specialties')">Our Specialties →</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-logo">SVH</div>
+          <h3>Shree Vinayak Hospital</h3>
+          <p>Kolar Road, Bhopal — Est. 2018</p>
+          <div class="hc-item"><div class="hc-dot" style="background:#00AEEF"></div><span>Endoscopic Spine Surgery</span></div>
+          <div class="hc-item"><div class="hc-dot" style="background:#E63329"></div><span>Advanced Orthopaedics</span></div>
+          <div class="hc-item"><div class="hc-dot" style="background:#10B981"></div><span>Gynaecology & Obstetrics</span></div>
+          <div class="hc-item"><div class="hc-dot" style="background:#F59E0B"></div><span>Reconstructive Surgery</span></div>
+          <div class="hc-item"><div class="hc-dot" style="background:#8B5CF6"></div><span>ICU, HDU & Critical Care</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES STRIP -->
+  <div class="features-strip">
+    <div class="features-strip-inner">
+      <div class="feature-item anim-on-scroll from-bottom delay-1"><span class="fi-icon">🏥</span><strong>55-Bed</strong><span>Modern Hospital</span></div>
+      <div class="feature-item anim-on-scroll from-bottom delay-2"><span class="fi-icon">🔬</span><strong>Advanced OT</strong><span>Endoscopic System</span></div>
+      <div class="feature-item anim-on-scroll from-bottom delay-3"><span class="fi-icon">🫀</span><strong>ICU + HDU</strong><span>Critical Care</span></div>
+      <div class="feature-item anim-on-scroll from-bottom delay-4"><span class="fi-icon">💊</span><strong>In-house</strong><span>X-Ray, USG, Pharmacy</span></div>
+    </div>
+  </div>
+
+  <!-- SPECIALTIES -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="section-label anim-on-scroll from-left">What We Treat</div>
+      <h2 class="section-title anim-on-scroll from-left delay-1">Our Core <span>Specialties</span></h2>
+      <p class="section-desc anim-on-scroll from-left delay-2" style="margin-bottom:44px;">From complex spine disorders to reconstructive surgeries — our specialists bring precision and compassion to every case.</p>
+      <div class="specialties-grid">
+        <div class="specialty-card anim-on-scroll from-bottom delay-1"><div class="specialty-icon" style="background:rgba(0,174,239,0.1)">🦴</div><h3>Spine Surgery</h3><p>Advanced endoscopic / keyhole spine surgeries including disc herniation, spinal stenosis, and TB spine with faster recovery.</p></div>
+        <div class="specialty-card anim-on-scroll from-bottom delay-2"><div class="specialty-icon" style="background:rgba(230,51,41,0.1)">🔩</div><h3>Orthopaedics</h3><p>Joint replacements, arthroscopy, fracture management, and reconstructive procedures for all major joints.</p></div>
+        <div class="specialty-card anim-on-scroll from-bottom delay-3"><div class="specialty-icon" style="background:rgba(16,185,129,0.1)">🌸</div><h3>Gynaecology</h3><p>Comprehensive women's health — antenatal care, normal and caesarean deliveries, and gynaecological issues.</p></div>
+        <div class="specialty-card anim-on-scroll from-bottom delay-4"><div class="specialty-icon" style="background:rgba(139,92,246,0.1)">✂️</div><h3>Plastic & Reconstructive</h3><p>Reconstructive surgery for trauma, burns, and congenital conditions with functional and cosmetic outcomes.</p></div>
+        <div class="specialty-card anim-on-scroll from-bottom delay-5"><div class="specialty-icon" style="background:rgba(245,158,11,0.1)">💊</div><h3>General Medicine</h3><p>Diabetes, hypertension, infections, thyroid, and other systemic conditions managed by experienced physicians.</p></div>
+        <div class="specialty-card anim-on-scroll from-bottom delay-6"><div class="specialty-icon" style="background:rgba(239,68,68,0.1)">🤸</div><h3>Physiotherapy</h3><p>Post-surgical rehab, back pain therapy, and customized exercise programs to restore strength and mobility.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COUNTER -->
+  <div class="counter-section">
+    <div class="counter-grid">
+      <div class="counter-item anim-on-scroll scale-in delay-1"><div class="counter-num"><span class="count-anim" data-target="55">0</span><span class="counter-suffix">+</span></div><div class="counter-label">Hospital Beds</div></div>
+      <div class="counter-item anim-on-scroll scale-in delay-2"><div class="counter-num"><span class="count-anim" data-target="6">0</span><span class="counter-suffix">+</span></div><div class="counter-label">Specialties</div></div>
+      <div class="counter-item anim-on-scroll scale-in delay-3"><div class="counter-num"><span class="count-anim" data-target="19">0</span><span class="counter-suffix">+</span></div><div class="counter-label">Yrs Spine Expertise</div></div>
+      <div class="counter-item anim-on-scroll scale-in delay-4"><div class="counter-num"><span class="count-anim" data-target="127">0</span><span class="counter-suffix">+</span></div><div class="counter-label">5★ Reviews</div></div>
+      <div class="counter-item anim-on-scroll scale-in delay-5"><div class="counter-num"><span class="count-anim" data-target="2018">2018</span></div><div class="counter-label">Year Founded</div></div>
+    </div>
+  </div>
+
+  <!-- ABOUT STRIP -->
+  <div class="section" style="background:var(--gray);">
+    <div class="section-inner">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+        <div class="anim-on-scroll from-left">
+          <div class="about-visual">
+            <h3>Why Choose SVH?</h3>
+            <p style="color:#94A3B8;font-size:0.82rem;margin-top:4px;">A hospital built by doctors, for patients.</p>
+            <ul class="about-list">
+              <li>Doctor-owned and doctor-run — clinical decisions, not commercial ones</li>
+              <li>Keyhole / endoscopic spine surgeries with shorter recovery times</li>
+              <li>State-of-the-art OT with advanced endoscopic imaging system</li>
+              <li>Dedicated ICU and HDU for critical care monitoring</li>
+              <li>In-house X-Ray, USG, Pharmacy & Physiotherapy — all under one roof</li>
+              <li>Deluxe, semi-deluxe, and general ward options for every budget</li>
+              <li>24×7 emergency services — always ready</li>
+            </ul>
+          </div>
+        </div>
+        <div class="anim-on-scroll from-right">
+          <div class="section-label">Our Journey</div>
+          <h2 class="section-title">Built on <span>Trust</span> & Excellence</h2>
+          <p style="font-size:0.9rem;color:var(--muted);line-height:1.85;margin-bottom:14px;">Established in 2018 in Mandakini Colony, Kolar Road, Bhopal — with a vision to make high-quality orthopaedic and spine care accessible to everyone in Madhya Pradesh.</p>
+          <p style="font-size:0.9rem;color:var(--muted);line-height:1.85;margin-bottom:20px;">Expanded in 2021 to 30 beds and again in 2024 to 55 beds, adding a new OT, ICU, and HDU with the latest endoscopic technology.</p>
+          <div class="highlight-box">
+            <p>"हड्डी और कमर दर्द के इलाज के लिए एक भरोसेमंद जगह" — A trusted destination for bone and spine treatment in Bhopal.</p>
+          </div>
+          <a class="btn-primary" onclick="showPage('about')" style="margin-top:20px;text-decoration:none;display:inline-flex;">Read Full Story →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCTORS PREVIEW -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="section-label anim-on-scroll from-left">Expert Team</div>
+      <h2 class="section-title anim-on-scroll from-left delay-1">Meet Our <span>Doctors</span></h2>
+      <div class="doctors-grid" style="margin-top:36px;">
+        <div class="doctor-card anim-on-scroll from-bottom delay-1">
+          <div class="doctor-card-top">
+            <div class="doctor-avatar" style="background:linear-gradient(135deg,#00AEEF,#009ad4);">MG</div>
+            <h3>Dr. Mukul Gupta</h3>
+            <p>Spine Surgeon & Orthopaedist</p>
+          </div>
+          <div class="doctor-card-body">
+            <p class="doctor-qual">MBBS, MS – Orthopaedics, D-Ortho, Fellow in Spine Surgery</p>
+            <span class="doctor-exp">19+ Years Experience</span>
+            <p class="doctor-timing">OPD: Mon–Sat | 9–10 AM & 6–8 PM</p>
+          </div>
+        </div>
+        <div class="doctor-card anim-on-scroll from-bottom delay-2">
+          <div class="doctor-card-top">
+            <div class="doctor-avatar" style="background:linear-gradient(135deg,#10B981,#059669);">AS</div>
+            <h3>Dr. Aditi Singhal</h3>
+            <p>Gynaecologist & Obstetrician</p>
+          </div>
+          <div class="doctor-card-body">
+            <p class="doctor-qual">MBBS, MS – Obstetrics & Gynaecology</p>
+            <span class="doctor-exp">9+ Years Experience</span>
+            <p class="doctor-timing">OPD: By Appointment</p>
+          </div>
+        </div>
+        <div class="doctor-card anim-on-scroll from-bottom delay-3">
+          <div class="doctor-card-top">
+            <div class="doctor-avatar" style="background:linear-gradient(135deg,#F59E0B,#D97706);">VM</div>
+            <h3>Dr. Vikas Malviya</h3>
+            <p>General Physician & Endocrinologist</p>
+          </div>
+          <div class="doctor-card-body">
+            <p class="doctor-qual">MBBS, MD – General Medicine</p>
+            <span class="doctor-exp">Experienced Specialist</span>
+            <p class="doctor-timing">OPD: By Appointment</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:32px;">
+        <a class="btn-primary" onclick="showPage('doctors')" style="text-decoration:none;display:inline-flex;">View All Doctors →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div style="max-width:600px;margin:0 auto;position:relative;z-index:1;" class="anim-on-scroll scale-in">
+      <h2 style="font-family:'Poppins',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:var(--white);margin-bottom:12px;">क्योंकि हर मरीज हमारे लिए ज़रूरी है</h2>
+      <p style="color:#94A3B8;margin-bottom:28px;font-size:0.92rem;">Because every patient matters to us. Reach out today for a consultation with our specialists.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="tel:+917554222943" class="btn-primary">📞 +91 755 422 2943</a>
+        <a class="btn-outline" onclick="showPage('contact')">📅 Book Appointment</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<div class="page" id="page-about">
+  <div class="section" style="padding-top:60px;">
+    <div class="section-inner">
+      <div class="section-label anim-on-scroll from-left">Our Story</div>
+      <h1 class="section-title anim-on-scroll from-left delay-1">About <span>Shree Vinayak Hospital</span></h1>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:52px;margin-top:40px;align-items:start;">
+        <div class="anim-on-scroll from-left">
+          <p style="font-size:0.92rem;color:var(--muted);line-height:1.9;margin-bottom:16px;">Shree Vinayak Hospital is a doctor-owned and doctor-run multispecialty hospital at 347, Mandakini Colony, B-Sector, Kolar Road, Bhopal – 462042. Founded in 2018, it is built on a simple mission: bring advanced orthopaedic and spine care to the people of Madhya Pradesh.</p>
+          <p style="font-size:0.92rem;color:var(--muted);line-height:1.9;margin-bottom:16px;">The hospital specialises in spine surgeries (including minimally invasive endoscopic / keyhole approaches), orthopaedic surgeries, gynaecology and obstetrics, reconstructive plastic surgeries, and general medicine.</p>
+          <p style="font-size:0.92rem;color:var(--muted);line-height:1.9;margin-bottom:24px;">Currently at 55-bed capacity across deluxe, semi-deluxe, and general ward configurations, with a fully equipped OT featuring advanced endoscopic systems.</p>
+          <div class="highlight-box">
+            <p>Specialists include Dr. Mukul Gupta (19+ yrs, Spine & Ortho), Dr. Aditi Singhal (9+ yrs, Gynaecology), Dr. Vikas Malviya (General Medicine), and visiting specialists in multiple domains.</p>
+          </div>
+        </div>
+        <div class="anim-on-scroll from-right">
+          <div class="about-visual" style="margin-bottom:24px;">
+            <h3>Hospital at a Glance</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;">
+              <div style="background:rgba(255,255,255,0.07);border-radius:12px;padding:16px;text-align:center;transition:background 0.2s;" onmouseenter="this.style.background='rgba(0,174,239,0.15)'" onmouseleave="this.style.background='rgba(255,255,255,0.07)'"><div style="font-family:'Poppins',sans-serif;font-size:2rem;font-weight:800;color:var(--sky);">55</div><div style="font-size:0.73rem;color:#94A3B8;">Beds</div></div>
+              <div style="background:rgba(255,255,255,0.07);border-radius:12px;padding:16px;text-align:center;transition:background 0.2s;" onmouseenter="this.style.background='rgba(230,51,41,0.15)'" onmouseleave="this.style.background='rgba(255,255,255,0.07)'"><div style="font-family:'Poppins',sans-serif;font-size:2rem;font-weight:800;color:var(--red);">2018</div><div style="font-size:0.73rem;color:#94A3B8;">Est.</div></div>
+              <div style="background:rgba(255,255,255,0.07);border-radius:12px;padding:16px;text-align:center;transition:background 0.2s;" onmouseenter="this.style.background='rgba(16,185,129,0.15)'" onmouseleave="this.style.background='rgba(255,255,255,0.07)'"><div style="font-family:'Poppins',sans-serif;font-size:2rem;font-weight:800;color:#10B981;">24×7</div><div style="font-size:0.73rem;color:#94A3B8;">Emergency</div></div>
+              <div style="background:rgba(255,255,255,0.07);border-radius:12px;padding:16px;text-align:center;transition:background 0.2s;" onmouseenter="this.style.background='rgba(245,158,11,0.15)'" onmouseleave="this.style.background='rgba(255,255,255,0.07)'"><div style="font-family:'Poppins',sans-serif;font-size:2rem;font-weight:800;color:#F59E0B;">6+</div><div style="font-size:0.73rem;color:#94A3B8;">Specialties</div></div>
+            </div>
+          </div>
+          <h3 style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;color:var(--blue);margin-bottom:16px;">Growth Timeline</h3>
+          <div class="timeline">
+            <div class="timeline-item anim-on-scroll from-right delay-1"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-text">Founded by Dr. Mukul Gupta as a spine and orthopaedic centre in Kolar, Bhopal.</div></div>
+            <div class="timeline-item anim-on-scroll from-right delay-2"><div class="timeline-dot" style="background:var(--red)"></div><div class="timeline-year">2021</div><div class="timeline-text">First major expansion — capacity to 30 beds; gynaecology and dermatology departments added.</div></div>
+            <div class="timeline-item anim-on-scroll from-right delay-3"><div class="timeline-dot" style="background:#10B981"></div><div class="timeline-year">2024</div><div class="timeline-text">Expanded to 55 beds; advanced endoscopic OT, ICU & HDU commissioned.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="background:var(--gray);">
+    <div class="section-inner">
+      <div class="section-label anim-on-scroll from-left">Infrastructure</div>
+      <h2 class="section-title anim-on-scroll from-left delay-1">World-Class <span>Facilities</span></h2>
+      <div class="facilities-grid" style="margin-top:32px;">
+        <div class="facility-card anim-on-scroll from-bottom delay-1"><span class="facility-icon">🏥</span><h4>Advanced OT</h4><p>Endoscopic operation theater</p></div>
+        <div class="facility-card anim-on-scroll from-bottom delay-2"><span class="facility-icon">🫀</span><h4>ICU</h4><p>24×7 intensive monitoring</p></div>
+        <div class="facility-card anim-on-scroll from-bottom delay-3"><span class="facility-icon">🛏️</span><h4>HDU</h4><p>High Dependency Unit</p></div>
+        <div class="facility-card anim-on-scroll from-bottom delay-4"><span class="facility-icon">🩻</span><h4>X-Ray & USG</h4><p>In-house digital imaging</p></div>
+        <div class="facility-card anim-on-scroll from-bottom delay-5"><span class="facility-icon">💊</span><h4>Pharmacy</h4><p>In-house full pharmacy</p></div>
+        <div class="facility-card anim-on-scroll from-bottom delay-6"><span class="facility-icon">🤸</span><h4>Physiotherapy</h4><p>Dedicated rehab department</p></div>
+        <div class="facility-card anim-on-scroll from-bottom delay-1"><span class="facility-icon">🛋️</span><h4>Deluxe Rooms</h4><p>Private & semi-private rooms</p></div>
+        <div class="facility-card anim-on-scroll from-bottom delay-2"><span class="facility-icon">🚑</span><h4>24×7 Emergency</h4><p>Round-the-clock trauma care</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SPECIALTIES ═══════════ -->
+<div class="page" id="page-specialties">
+  <div class="section" style="padding-top:60px;">
+    <div class="section-inner">
+      <div class="section-label anim-on-scroll from-left">Medical Expertise</div>
+      <h1 class="section-title anim-on-scroll from-left delay-1">Our <span>Specialties</span></h1>
+      <p class="section-desc anim-on-scroll from-left delay-2" style="margin-bottom:44px;">Comprehensive multispecialty care — from complex spine surgeries to women's health and reconstructive procedures.</p>
+      <div style="display:grid;gap:20px;">
+        <div class="anim-on-scroll from-bottom delay-1" style="background:var(--gray);border-radius:16px;padding:32px;display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:start;transition:box-shadow 0.3s;" onmouseenter="this.style.boxShadow='0 8px 32px rgba(0,174,239,0.12)'" onmouseleave="this.style.boxShadow='none'">
+          <div style="width:64px;height:64px;background:rgba(0,174,239,0.15);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2rem;transition:transform 0.3s;" onmouseenter="this.style.transform='rotate(-8deg) scale(1.1)'" onmouseleave="this.style.transform=''">🦴</div>
+          <div><h2 style="font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:700;color:var(--blue);margin-bottom:8px;">Spine Surgery</h2><p style="font-size:0.87rem;color:var(--muted);line-height:1.8;margin-bottom:12px;">Fellowship-trained surgeon with 19+ yrs experience in both open and minimally invasive endoscopic spine procedures.</p><div style="display:flex;flex-wrap:wrap;gap:8px;"><span style="background:rgba(0,174,239,0.1);color:var(--sky);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Endoscopic Discectomy</span><span style="background:rgba(0,174,239,0.1);color:var(--sky);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">TB Spine</span><span style="background:rgba(0,174,239,0.1);color:var(--sky);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Spinal Stenosis</span><span style="background:rgba(0,174,239,0.1);color:var(--sky);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Cervical Discectomy</span><span style="background:rgba(0,174,239,0.1);color:var(--sky);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Keyhole Surgery</span></div></div>
+        </div>
+        <div class="anim-on-scroll from-bottom delay-2" style="background:var(--gray);border-radius:16px;padding:32px;display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:start;transition:box-shadow 0.3s;" onmouseenter="this.style.boxShadow='0 8px 32px rgba(230,51,41,0.1)'" onmouseleave="this.style.boxShadow='none'">
+          <div style="width:64px;height:64px;background:rgba(230,51,41,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2rem;transition:transform 0.3s;" onmouseenter="this.style.transform='rotate(-8deg) scale(1.1)'" onmouseleave="this.style.transform=''">🔩</div>
+          <div><h2 style="font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:700;color:var(--blue);margin-bottom:8px;">Orthopaedics</h2><p style="font-size:0.87rem;color:var(--muted);line-height:1.8;margin-bottom:12px;">Full spectrum care from fracture management to joint replacement and sports injury treatment.</p><div style="display:flex;flex-wrap:wrap;gap:8px;"><span style="background:rgba(230,51,41,0.1);color:var(--red);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Joint Replacement</span><span style="background:rgba(230,51,41,0.1);color:var(--red);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Arthroscopy</span><span style="background:rgba(230,51,41,0.1);color:var(--red);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Fracture & Trauma</span><span style="background:rgba(230,51,41,0.1);color:var(--red);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Bone Tumour</span><span style="background:rgba(230,51,41,0.1);color:var(--red);padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Polytrauma</span></div></div>
+        </div>
+        <div class="anim-on-scroll from-bottom delay-3" style="background:var(--gray);border-radius:16px;padding:32px;display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:start;transition:box-shadow 0.3s;" onmouseenter="this.style.boxShadow='0 8px 32px rgba(16,185,129,0.1)'" onmouseleave="this.style.boxShadow='none'">
+          <div style="width:64px;height:64px;background:rgba(16,185,129,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2rem;transition:transform 0.3s;" onmouseenter="this.style.transform='rotate(-8deg) scale(1.1)'" onmouseleave="this.style.transform=''">🌸</div>
+          <div><h2 style="font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:700;color:var(--blue);margin-bottom:8px;">Gynaecology & Obstetrics</h2><p style="font-size:0.87rem;color:var(--muted);line-height:1.8;margin-bottom:12px;">Dr. Aditi Singhal leads women's health with 9+ yrs experience, rated 5/5 by 127+ patients.</p><div style="display:flex;flex-wrap:wrap;gap:8px;"><span style="background:rgba(16,185,129,0.1);color:#059669;padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Antenatal Care</span><span style="background:rgba(16,185,129,0.1);color:#059669;padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Normal Delivery</span><span style="background:rgba(16,185,129,0.1);color:#059669;padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">C-Section</span><span style="background:rgba(16,185,129,0.1);color:#059669;padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Neo-Natal Care</span></div></div>
+        </div>
+        <div class="anim-on-scroll from-bottom delay-4" style="background:var(--gray);border-radius:16px;padding:32px;display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:start;transition:box-shadow 0.3s;" onmouseenter="this.style.boxShadow='0 8px 32px rgba(139,92,246,0.1)'" onmouseleave="this.style.boxShadow='none'">
+          <div style="width:64px;height:64px;background:rgba(139,92,246,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2rem;transition:transform 0.3s;" onmouseenter="this.style.transform='rotate(-8deg) scale(1.1)'" onmouseleave="this.style.transform=''">✂️</div>
+          <div><h2 style="font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:700;color:var(--blue);margin-bottom:8px;">Plastic & Reconstructive Surgery</h2><p style="font-size:0.87rem;color:var(--muted);line-height:1.8;margin-bottom:12px;">Reconstructive procedures for trauma, burns, wound complications, and congenital defects.</p><div style="display:flex;flex-wrap:wrap;gap:8px;"><span style="background:rgba(139,92,246,0.1);color:#7C3AED;padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Burns</span><span style="background:rgba(139,92,246,0.1);color:#7C3AED;padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Wound Reconstruction</span><span style="background:rgba(139,92,246,0.1);color:#7C3AED;padding:4px 12px;border-radius:12px;font-size:0.73rem;font-weight:600;">Trauma Repair</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ DOCTORS ═══════════ -->
+<div class="page" id="page-doctors">
+  <div class="section" style="padding-top:60px;">
+    <div class="section-inner">
+      <div class="section-label anim-on-scroll from-left">Meet the Team</div>
+      <h1 class="section-title anim-on-scroll from-left delay-1">Our <span>Doctors</span></h1>
+      <p class="section-desc anim-on-scroll from-left delay-2" style="margin-bottom:44px;">Our experienced specialists are committed to patient-centred care with clinical excellence.</p>
+      <div class="doctors-grid">
+        <div class="doctor-card anim-on-scroll from-bottom delay-1">
+          <div class="doctor-card-top"><div class="doctor-avatar" style="background:linear-gradient(135deg,#00AEEF,#009ad4);">MG</div><h3>Dr. Mukul Gupta</h3><p>Spine Surgeon & Orthopaedist</p></div>
+          <div class="doctor-card-body"><p class="doctor-qual">MBBS, MS – Orthopaedics, D-Ortho, Fellow in Spine Surgery</p><span class="doctor-exp">19+ Years Experience</span><p style="font-size:0.8rem;color:var(--muted);margin-top:10px;line-height:1.6;">Expert in minimally invasive endoscopic spine surgeries, joint replacements, fracture management. Founder & Director, SVH.</p><p class="doctor-timing">OPD: Mon–Sat | 9–10 AM & 6–8 PM</p></div>
+        </div>
+        <div class="doctor-card anim-on-scroll from-bottom delay-2">
+          <div class="doctor-card-top"><div class="doctor-avatar" style="background:linear-gradient(135deg,#10B981,#059669);">AS</div><h3>Dr. Aditi Singhal</h3><p>Gynaecologist & Obstetrician</p></div>
+          <div class="doctor-card-body"><p class="doctor-qual">MBBS, MS – Obstetrics & Gynaecology</p><span class="doctor-exp">9+ Years Experience</span><p style="font-size:0.8rem;color:var(--muted);margin-top:10px;line-height:1.6;">Specialises in antenatal care, high-risk deliveries, and gynaecological conditions. Rated 5/5 by 127+ patients.</p><p class="doctor-timing">OPD: By Appointment</p></div>
+        </div>
+        <div class="doctor-card anim-on-scroll from-bottom delay-3">
+          <div class="doctor-card-top"><div class="doctor-avatar" style="background:linear-gradient(135deg,#F59E0B,#D97706);">VM</div><h3>Dr. Vikas Malviya</h3><p>General Physician</p></div>
+          <div class="doctor-card-body"><p class="doctor-qual">MBBS, MD – General Medicine</p><span class="doctor-exp">Experienced Specialist</span><p style="font-size:0.8rem;color:var(--muted);margin-top:10px;line-height:1.6;">Manages a wide range of acute and chronic medical conditions including diabetes, hypertension, and infections.</p><p class="doctor-timing">OPD: Mon–Sat</p></div>
+        </div>
+      </div>
+      <div style="margin-top:28px;background:var(--gray);border-radius:12px;padding:20px 24px;text-align:center;" class="anim-on-scroll from-bottom">
+        <p style="color:var(--muted);font-size:0.84rem;">Our team also includes visiting specialists in Neurosurgery, Dermatology, Urology, and more.</p>
+        <a class="btn-primary" onclick="showPage('contact')" style="margin-top:14px;text-decoration:none;display:inline-flex;">Book a Consultation</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ GALLERY ═══════════ -->
+<div class="page" id="page-gallery">
+  <div class="section" style="padding-top:60px;">
+    <div class="section-inner">
+      <div class="section-label anim-on-scroll from-left">Photo & Video</div>
+      <h1 class="section-title anim-on-scroll from-left delay-1">Hospital <span>Gallery</span></h1>
+      <p class="section-desc anim-on-scroll from-left delay-2" style="margin-bottom:36px;">A look inside Shree Vinayak Hospital — our facilities, team, and moments of care.</p>
+      <div style="display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;" id="galleryFilters">
+        <button class="filter-btn active" onclick="renderGallery('all',this)">All</button>
+        <button class="filter-btn" onclick="renderGallery('image',this)">📷 Photos</button>
+        <button class="filter-btn" onclick="renderGallery('video',this)">🎥 Videos</button>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" class="lightbox-img" src="" alt="" style="display:none;"/>
+</div>
+
+<!-- ═══════════ PATIENT EDUCATION ═══════════ -->
+<div class="page" id="page-learn">
+  <div class="section" style="padding-top:60px;">
+    <div class="section-inner">
+      <div class="section-label anim-on-scroll from-left">Health Education</div>
+      <h1 class="section-title anim-on-scroll from-left delay-1">Patient <span>Education</span></h1>
+      <p class="section-desc anim-on-scroll from-left delay-2" style="margin-bottom:28px;">Learn about common conditions, treatments, and post-operative care from our medical team.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;" id="learnFilters">
+        <button class="filter-btn active" onclick="renderLearn('all',this)">All Topics</button>
+        <button class="filter-btn" onclick="renderLearn('spine',this)">Spine</button>
+        <button class="filter-btn" onclick="renderLearn('ortho',this)">Orthopaedics</button>
+        <button class="filter-btn" onclick="renderLearn('gynaec',this)">Gynaecology</button>
+        <button class="filter-btn" onclick="renderLearn('general',this)">General Health</button>
+      </div>
+      <div class="learn-grid" id="learnGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Learn Modal -->
+<div class="modal" id="learnModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <span class="modal-cat" id="modal-cat"></span>
+    <h2 class="modal-title" id="modal-title"></h2>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<div class="page" id="page-contact">
+  <div class="section" style="padding-top:60px;">
+    <div class="section-inner">
+      <div class="section-label anim-on-scroll from-left">Reach Us</div>
+      <h1 class="section-title anim-on-scroll from-left delay-1">Contact & <span>Appointments</span></h1>
+      <div class="contact-grid" style="margin-top:40px;">
+        <div class="anim-on-scroll from-left">
+          <div class="contact-item"><div class="contact-icon">📍</div><div><h4>Address</h4><p>347, Mandakini Colony, B-Sector,<br>Kolar Road, Bhopal – 462042, MP</p></div></div>
+          <div class="contact-item"><div class="contact-icon">📞</div><div><h4>Phone</h4><a href="tel:+917554222943">+91 755 422 2943</a><br><a href="tel:+917389105302">+91 738 910 5302</a><br><a href="tel:+916268003968">+91 626 800 3968</a></div></div>
+          <div class="contact-item"><div class="contact-icon">✉️</div><div><h4>Email</h4><a href="mailto:drmukul2007@rediffmail.com">drmukul2007@rediffmail.com</a></div></div>
+          <div class="contact-item"><div class="contact-icon">🕐</div><div><h4>OPD Hours</h4><table class="timings-table"><tr><td>Mon – Sat</td><td>9:00 AM – 10:00 AM</td></tr><tr><td>Mon – Sat</td><td>6:00 PM – 8:00 PM</td></tr><tr><td>Emergency</td><td>24 × 7</td></tr></table></div></div>
+          <div style="border-radius:12px;overflow:hidden;border:1.5px solid var(--border);">
+            <iframe src="https://maps.google.com/maps?q=Shree+Vinayak+Hospital+Kolar+Road+Bhopal&output=embed" width="100%" height="220" style="border:0;display:block;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="anim-on-scroll from-right">
+          <div class="contact-form">
+            <h3>📅 Book an Appointment</h3>
+            <div class="fgroup"><label>Full Name</label><input type="text" id="cf-name" placeholder="Your full name"/></div>
+            <div class="fgroup"><label>Phone Number</label><input type="tel" id="cf-phone" placeholder="+91 XXXXX XXXXX"/></div>
+            <div class="fgroup"><label>Department</label><select id="cf-dept"><option value="">Select Department</option><option>Spine Surgery</option><option>Orthopaedics</option><option>Gynaecology</option><option>Plastic & Reconstructive</option><option>General Medicine</option><option>Physiotherapy</option><option>Emergency</option></select></div>
+            <div class="fgroup"><label>Preferred Date</label><input type="date" id="cf-date"/></div>
+            <div class="fgroup"><label>Message / Symptoms (optional)</label><textarea id="cf-msg" placeholder="Briefly describe your concern..."></textarea></div>
+            <button class="form-submit" onclick="submitAppointment()">Submit Request →</button>
+            <p style="font-size:0.74rem;color:var(--muted);margin-top:12px;text-align:center;">Or call directly: <a href="tel:+917554222943" style="color:var(--sky);font-weight:700;">+91 755 422 2943</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Shree Vinayak Hospital</h3>
+      <p>Advanced Orthopedic & Spine Care Centre — A doctor-owned, doctor-run multispecialty hospital in Kolar, Bhopal, delivering excellence in spine, orthopaedic, gynaecology, and reconstructive care since 2018.</p>
+      <p>📞 <a href="tel:+917554222943" style="color:var(--sky);text-decoration:none;">+91 755 422 2943</a></p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul><li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('about')">About Us</a></li><li><a onclick="showPage('specialties')">Specialties</a></li><li><a onclick="showPage('doctors')">Doctors</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a onclick="showPage('specialties')">Spine Surgery</a></li><li><a onclick="showPage('specialties')">Orthopaedics</a></li><li><a onclick="showPage('specialties')">Gynaecology</a></li><li><a onclick="showPage('specialties')">Plastic Surgery</a></li></ul></div>
+    <div class="footer-col"><h4>Patient</h4><ul><li><a onclick="showPage('gallery')">Gallery</a></li><li><a onclick="showPage('learn')">Patient Education</a></li><li><a onclick="showPage('contact')">Book Appointment</a></li><li><a href="tel:+917554222943">Emergency Helpline</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Shree Vinayak Hospital, Bhopal. All rights reserved.</span>
+    <span>347, Mandakini Colony, Kolar Road, Bhopal – 462042</span>
+  </div>
+</footer>
+
+<script>
+// ═══ NAV ═══
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  // trigger scroll animations for the new page
+  setTimeout(checkAnimations, 50);
+  if (id === 'gallery') renderGallery('all');
+  if (id === 'learn') renderLearn('all');
+}
+function toggleMobile() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ═══ SCROLL ANIMATIONS ═══
+function checkAnimations() {
+  const els = document.querySelectorAll('#page-' + currentPage + ' .anim-on-scroll');
+  els.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60) el.classList.add('visible');
+  });
+}
+let currentPage = 'home';
+const origShowPage = showPage;
+window.showPage = function(id) {
+  currentPage = id;
+  origShowPage(id);
+};
+window.addEventListener('scroll', checkAnimations, {passive:true});
+window.addEventListener('load', () => { currentPage='home'; setTimeout(checkAnimations,100); });
+
+// ═══ HERO PARTICLES ═══
+(function createParticles() {
+  const container = document.getElementById('heroParticles');
+  if (!container) return;
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      width:${2+Math.random()*4}px;
+      height:${2+Math.random()*4}px;
+      opacity:${0.2+Math.random()*0.5};
+      animation-duration:${6+Math.random()*8}s;
+      animation-delay:${Math.random()*6}s;
+      background:${Math.random()>0.6?'#E63329':'#00AEEF'};
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// ═══ COUNTER ANIMATION ═══
+function animateCounter(el, target, duration=1800) {
+  const start = performance.now();
+  const from = 0;
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(from + (target - from) * eased);
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+// Intersection observer for counters
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const target = parseInt(entry.target.dataset.target);
+      if (!isNaN(target) && target !== 2018) animateCounter(entry.target, target);
+      counterObs.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('.count-anim').forEach(el => counterObs.observe(el));
+
+// ═══ GALLERY ═══
+let galleryData = [];
+
+function loadGalleryData() {
+  try {
+    galleryData = JSON.parse(localStorage.getItem('svh_gallery') || '[]');
+  } catch(e) { galleryData = []; }
+}
+
+function renderGallery(filter, btn) {
+  loadGalleryData();
+  // update filter buttons
+  if (btn) {
+    document.querySelectorAll('#galleryFilters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const grid = document.getElementById('galleryGrid');
+  const items = filter === 'all' ? galleryData : galleryData.filter(g => g.type === filter);
+
+  if (items.length === 0) {
+    grid.innerHTML = `
+      <div class="gallery-placeholder-empty">
+        <div class="ph-icon">${filter === 'video' ? '🎥' : '🖼️'}</div>
+        <p style="font-size:1rem;font-weight:600;color:var(--blue);margin-bottom:6px;">No ${filter === 'all' ? 'gallery items' : (filter === 'video' ? 'videos' : 'photos')} yet</p>
+        <p style="font-size:0.82rem;">Staff can upload photos and videos from the <strong>Admin Panel</strong>.<br>Open <code>admin.html</code> in the same browser to get started.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = items.map((item, i) => {
+    if (item.type === 'video') {
+      return `<div class="gallery-item">
+        <video src="${item.data}" controls preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
+      </div>`;
+    } else {
+      // Use data-index to avoid passing huge base64 in onclick
+      return `<div class="gallery-item" onclick="openLightbox(${galleryData.indexOf(item)})">
+        <img src="${item.data}" alt="${item.caption||'Hospital photo'}" loading="lazy"/>
+        <div class="overlay">
+          <div class="overlay-icon">🔍</div>
+          <div class="overlay-caption">${item.caption||''}</div>
+        </div>
+      </div>`;
+    }
+  }).join('');
+
+  // Animate items in
+  setTimeout(() => {
+    grid.querySelectorAll('.gallery-item').forEach((el,i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      }, i * 60);
+    });
+  }, 10);
+}
+
+function openLightbox(idx) {
+  loadGalleryData();
+  const item = galleryData[idx];
+  if (!item || item.type !== 'image') return;
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImg');
+  img.src = item.data;
+  img.style.display = 'block';
+  lb.classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightboxImg').src = '';
+}
+
+// ═══ PATIENT EDUCATION ═══
+function renderLearn(filter, btn) {
+  let posts = [];
+  try { posts = JSON.parse(localStorage.getItem('svh_learn') || '[]'); } catch(e) {}
+
+  if (btn) {
+    document.querySelectorAll('#learnFilters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  const grid = document.getElementById('learnGrid');
+  const filtered = filter === 'all' ? posts : posts.filter(p => p.category === filter);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted);">
+        <div style="font-size:3.5rem;margin-bottom:14px;opacity:0.5;">📚</div>
+        <p style="font-size:1rem;font-weight:600;color:var(--blue);margin-bottom:6px;">No articles in this category yet</p>
+        <p style="font-size:0.82rem;">Check back soon or explore other topics. Staff can publish articles from the Admin Panel.</p>
+      </div>`;
+    return;
+  }
+
+  // Store globally for modal access
+  window._learnPosts = posts;
+  grid.innerHTML = filtered.map(post => {
+    const globalIdx = posts.indexOf(post);
+    return `<div class="learn-card">
+      <div class="learn-card-top">${post.emoji || '🏥'}</div>
+      <div class="learn-card-body">
+        <span class="learn-cat">${post.category || 'General'}</span>
+        <h3>${escHtml(post.title)}</h3>
+        <p>${escHtml(post.summary)}</p>
+        <a class="learn-read" onclick="openLearnPost(${globalIdx})">Read More →</a>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Animate
+  setTimeout(() => {
+    grid.querySelectorAll('.learn-card').forEach((el,i) => {
+      el.style.opacity='0';el.style.transform='translateY(20px)';
+      setTimeout(() => {el.style.transition='opacity 0.4s ease,transform 0.4s ease';el.style.opacity='1';el.style.transform='none';}, i*80);
+    });
+  }, 10);
+}
+
+function openLearnPost(idx) {
+  let posts = [];
+  try { posts = JSON.parse(localStorage.getItem('svh_learn') || '[]'); } catch(e) {}
+  const post = posts[idx];
+  if (!post) return;
+  document.getElementById('modal-cat').textContent = post.category || 'Health';
+  document.getElementById('modal-title').textContent = post.title;
+  document.getElementById('modal-body').innerHTML =
+    `<p style="color:var(--muted);font-size:0.8rem;margin-bottom:16px;">By ${escHtml(post.author || 'SVH Medical Team')} · ${post.date || ''}</p>` +
+    escHtml(post.content).replace(/\n\n/g, '</p><p style="margin-top:12px;">').replace(/\n/g, '<br>');
+  document.getElementById('learnModal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('learnModal').classList.remove('open'); }
+
+function escHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ═══ CONTACT ═══
+function submitAppointment() {
+  const name = document.getElementById('cf-name').value.trim();
+  const phone = document.getElementById('cf-phone').value.trim();
+  const dept = document.getElementById('cf-dept').value;
+  if (!name || !phone) { alert('Please fill in your name and phone number.'); return; }
+  alert(`✅ Appointment request received!\n\nName: ${name}\nPhone: ${phone}\nDepartment: ${dept||'Not specified'}\n\nOur team will call you shortly.\n\nFor immediate help: +91 755 422 2943`);
+  ['cf-name','cf-phone','cf-msg'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('cf-dept').value = '';
+}
+
+// ═══ INIT ═══
+window.addEventListener('load', () => {
+  checkAnimations();
+  // Animate hero stats
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    animateCounter(el, target, 2000);
+  });
+});
+</script>
+</body>
+</html>
