@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -593,29 +592,33 @@ async function upFiles(files){
   var arr=Array.from(files);
   var up=document.getElementById('up'),uf=document.getElementById('uf'),us=document.getElementById('us');
   up.style.display='block';uf.style.width='0%';
-  var store=fst(),db=fdb(),gal=getGallery(),done=0,skip=0;
+  var db=fdb(),gal=getGallery(),done=0,skip=0;
   for(var i=0;i<arr.length;i++){
     var f=arr[i],type=f.type.startsWith('video')?'video':'image';
-    if(f.size>20971520){skip++;us.textContent='Skipping "'+f.name+'" — too large';continue;}
+    if(f.size>20971520){skip++;us.textContent='Skipping "'+f.name+'" — too large (max 20MB)';continue;}
     us.textContent='Uploading '+(i+1)+'/'+arr.length+': '+f.name;
-    if(store&&db){
-      try{
-        var path='gallery/'+Date.now()+'_'+i+'_'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-        var ref=store.ref(path);
-        await new Promise(function(res,rej){
-          var task=ref.put(f);
-          task.on('state_changed',function(sn){uf.style.width=Math.round(((i+sn.bytesTransferred/sn.totalBytes)/arr.length)*100)+'%';},rej,async function(){
-            var url=await ref.getDownloadURL();
-            var meta={type:type,url:url,caption:f.name.replace(/\.[^.]+$/,''),fileName:path,uploadedAt:new Date().toISOString(),source:'firebase'};
-            var doc=await db.collection('svh_gallery').add(meta);
-            gal.push(Object.assign({id:doc.id},meta));done++;res();
-          });
-        });
-      }catch(e){
-        await new Promise(function(res){var r=new FileReader();r.onload=function(ev){try{gal.push({id:'l'+Date.now()+i,type:type,data:ev.target.result,caption:f.name.replace(/\.[^.]+$/,''),uploadedAt:new Date().toISOString(),source:'local'});done++;}catch(ex){skip++;}res();};r.readAsDataURL(f);});
-      }
-    } else {
-      await new Promise(function(res){var r=new FileReader();r.onload=function(ev){try{gal.push({id:'l'+Date.now()+i,type:type,data:ev.target.result,caption:f.name.replace(/\.[^.]+$/,''),uploadedAt:new Date().toISOString(),source:'local'});done++;}catch(ex){skip++;}res();};r.readAsDataURL(f);});
+    try{
+      var fd=new FormData();
+      fd.append('file',f);
+      fd.append('upload_preset','ml_default');
+      fd.append('cloud_name','hpdaa7np');
+      var xhr=new XMLHttpRequest();
+      var url=await new Promise(function(res,rej){
+        xhr.open('POST','https://api.cloudinary.com/v1_1/hpdaa7np/'+(type==='video'?'video':'image')+'/upload');
+        xhr.upload.onprogress=function(ev){if(ev.lengthComputable)uf.style.width=Math.round(((i+(ev.loaded/ev.total))/arr.length)*100)+'%';};
+        xhr.onload=function(){
+          if(xhr.status===200){var r=JSON.parse(xhr.responseText);res(r.secure_url);}
+          else rej(new Error('Upload failed: '+xhr.status));
+        };
+        xhr.onerror=function(){rej(new Error('Network error'));};
+        xhr.send(fd);
+      });
+      var meta={type:type,url:url,caption:f.name.replace(/\.[^.]+$/,''),uploadedAt:new Date().toISOString(),source:'cloudinary'};
+      if(db){var doc=await db.collection('svh_gallery').add(meta);gal.push(Object.assign({id:doc.id},meta));}
+      else{gal.push(Object.assign({id:'c'+Date.now()+i},meta));}
+      done++;
+    }catch(e){
+      us.textContent='⚠️ Failed: '+f.name+' — '+e.message;skip++;
     }
     uf.style.width=Math.round(((i+1)/arr.length)*100)+'%';
   }
@@ -656,22 +659,26 @@ async function handleMedia(file){
   var mi=document.getElementById('mi'),mv=document.getElementById('mv');
   if(isV){mv.src=loc;mv.style.display='block';mi.style.display='none';}else{mi.src=loc;mi.style.display='block';mv.style.display='none';}
   var mp=document.getElementById('mp'),mf2=document.getElementById('mf2'),ms=document.getElementById('ms');
-  var store=fst(),db=fdb();
-  if(store&&db){
-    mp.style.display='block';ms.textContent='Uploading…';mf2.style.width='0%';
-    try{
-      var path='learn_media/'+Date.now()+'_'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-      var ref=store.ref(path);
-      await new Promise(function(res,rej){
-        var task=ref.put(file);
-        task.on('state_changed',function(sn){mf2.style.width=Math.round((sn.bytesTransferred/sn.totalBytes)*100)+'%';},rej,async function(){
-          mpUrl=await ref.getDownloadURL();mpData='';mpType=isV?'video':'image';mpFile=path;
-          ms.textContent='✅ Uploaded!';setTimeout(function(){mp.style.display='none';},1500);res();
-        });
-      });
-    }catch(e){var r=new FileReader();r.onload=function(ev){mpData=ev.target.result;mpUrl='';mpType=isV?'video':'image';mpFile='';mp.style.display='none';};r.readAsDataURL(file);}
-  } else {
-    var r2=new FileReader();r2.onload=function(ev){mpData=ev.target.result;mpUrl='';mpType=isV?'video':'image';mpFile='';};r2.readAsDataURL(file);
+  var db=fdb();
+  mp.style.display='block';ms.textContent='Uploading…';mf2.style.width='0%';
+  try{
+    var fd=new FormData();
+    fd.append('file',file);
+    fd.append('upload_preset','ml_default');
+    fd.append('cloud_name','hpdaa7np');
+    var resUrl=await new Promise(function(res,rej){
+      var xhr=new XMLHttpRequest();
+      xhr.open('POST','https://api.cloudinary.com/v1_1/hpdaa7np/'+(isV?'video':'image')+'/upload');
+      xhr.upload.onprogress=function(ev){if(ev.lengthComputable)mf2.style.width=Math.round((ev.loaded/ev.total)*100)+'%';};
+      xhr.onload=function(){if(xhr.status===200){var r=JSON.parse(xhr.responseText);res(r.secure_url);}else rej(new Error('Upload failed'));};
+      xhr.onerror=function(){rej(new Error('Network error'));};
+      xhr.send(fd);
+    });
+    mpUrl=resUrl;mpData='';mpType=isV?'video':'image';mpFile='';
+    ms.textContent='✅ Uploaded!';setTimeout(function(){mp.style.display='none';},1500);
+  }catch(e){
+    ms.textContent='❌ Failed: '+e.message;
+    setTimeout(function(){mp.style.display='none';},2000);
   }
 }
 function clearMedia(e){if(e)e.stopPropagation();mpUrl='';mpData='';mpType='';mpFile='';document.getElementById('mph').style.display='block';document.getElementById('mpr').style.display='none';document.getElementById('mi').src='';document.getElementById('mv').src='';document.getElementById('mf').value='';document.getElementById('mp').style.display='none';}
