@@ -309,11 +309,34 @@ nav a .i{font-size:.95rem;width:17px;text-align:center;flex-shrink:0;}
           </div>
           <div class="uprog" id="up"><div id="us" style="font-size:.78rem;font-weight:600;color:var(--blue);margin-bottom:5px">Uploading…</div><div class="pbar"><div class="pfill" id="uf"></div></div></div>
         </div>
+        <div class="card"><div class="ct">🔗 Add Social Media Link</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+            <div>
+              <label style="font-size:.75rem;font-weight:700;color:var(--blue);display:block;margin-bottom:4px">Platform</label>
+              <select id="soc-type" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:.85rem;background:#fff">
+                <option value="youtube">🎬 YouTube</option>
+                <option value="facebook">📘 Facebook</option>
+                <option value="instagram">📸 Instagram</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:.75rem;font-weight:700;color:var(--blue);display:block;margin-bottom:4px">URL / Link</label>
+              <input type="url" id="soc-url" placeholder="Paste YouTube / Facebook / Instagram link" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:.85rem"/>
+            </div>
+            <div>
+              <label style="font-size:.75rem;font-weight:700;color:var(--blue);display:block;margin-bottom:4px">Caption (optional)</label>
+              <input type="text" id="soc-caption" placeholder="e.g. Our hospital tour video" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:.85rem"/>
+            </div>
+            <button class="btn bsky" onclick="addSocialLink()" style="align-self:flex-start">➕ Add to Gallery</button>
+          </div>
+        </div>
         <div class="card"><div class="ct">🖼️ Gallery <span id="gc" style="font-size:.7rem;font-weight:400;color:var(--muted)"></span>
           <div style="margin-left:auto;display:flex;gap:5px">
             <button class="btn bsky bsm" onclick="fgal('all')">All</button>
             <button class="btn bgh bsm" onclick="fgal('image')">📷</button>
             <button class="btn bgh bsm" onclick="fgal('video')">🎥</button>
+            <button class="btn bgh bsm" onclick="fgal('youtube')">🎬</button>
+            <button class="btn bgh bsm" onclick="fgal('social')">🔗</button>
           </div></div>
           <div class="gg" id="ggrid"></div>
         </div>
@@ -586,6 +609,20 @@ function loadDash(){
 
 // ══ GALLERY ══
 var gf='all';
+
+function addSocialLink(){
+  var type=document.getElementById('soc-type').value;
+  var url=(document.getElementById('soc-url').value||'').trim();
+  var caption=(document.getElementById('soc-caption').value||'').trim();
+  if(!url){toast('Please enter a URL','warn');return;}
+  var gal=getGallery();
+  var db=fdb();
+  var meta={type:type,url:url,caption:caption||type+' post',uploadedAt:new Date().toISOString(),source:'social'};
+  if(db){db.collection('svh_gallery').add(meta).then(function(doc){gal.push(Object.assign({id:doc.id},meta));sl('svh_gallery',gal);renderGal();badges();toast('✅ Added to gallery','success');}).catch(function(){meta.id='s'+Date.now();gal.push(meta);sl('svh_gallery',gal);renderGal();badges();toast('✅ Added to gallery','success');});}
+  else{meta.id='s'+Date.now();gal.push(meta);sl('svh_gallery',gal);renderGal();badges();toast('✅ Added to gallery','success');}
+  document.getElementById('soc-url').value='';
+  document.getElementById('soc-caption').value='';
+}
 function onDrop(e){e.preventDefault();document.getElementById('dz').classList.remove('drag');upFiles(e.dataTransfer.files);}
 async function upFiles(files){
   if(!files||!files.length)return;
@@ -629,8 +666,9 @@ async function upFiles(files){
 async function syncGal(){var db=fdb();if(!db)return;try{var snap=await db.collection('svh_gallery').orderBy('uploadedAt','asc').get();var items=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});if(items.length){var local=getGallery().filter(function(g){return g.source==='local';});sl('svh_gallery',items.concat(local));}}catch(e){}}
 async function loadGal(){await syncGal();renderGal();}
 function fgal(f){gf=f;renderGal();}
+function isSocial(x){return x.type==='youtube'||x.type==='facebook'||x.type==='instagram';}
 function renderGal(){
-  var g=getGallery(),filtered=gf==='all'?g:g.filter(function(x){return x.type===gf;});
+  var g=getGallery(),filtered=gf==='all'?g:gf==='social'?g.filter(function(x){return isSocial(x);}):g.filter(function(x){return x.type===gf;});
   document.getElementById('gc').textContent='('+g.length+')';
   var el=document.getElementById('ggrid');
   if(!filtered.length){el.innerHTML='<p style="font-size:.8rem;color:var(--muted);grid-column:1/-1;text-align:center;padding:20px">No items yet.</p>';return;}
