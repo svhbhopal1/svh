@@ -344,6 +344,23 @@ nav a .i{font-size:.95rem;width:17px;text-align:center;flex-shrink:0;}
 
       <!-- LEARN -->
       <div class="pnl" id="pnl-learn">
+        <div class="card"><div class="ct">🔗 Add Social Media Link</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+            <div><label style="font-size:.75rem;font-weight:700;color:var(--blue);display:block;margin-bottom:4px">Platform</label>
+              <select id="learn-soc-type" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:.85rem;background:#fff">
+                <option value="youtube">🎬 YouTube</option><option value="facebook">📘 Facebook</option><option value="instagram">📸 Instagram</option>
+              </select></div>
+            <div><label style="font-size:.75rem;font-weight:700;color:var(--blue);display:block;margin-bottom:4px">URL</label>
+              <input type="url" id="learn-soc-url" placeholder="Paste link here" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:.85rem"/></div>
+            <div><label style="font-size:.75rem;font-weight:700;color:var(--blue);display:block;margin-bottom:4px">Title</label>
+              <input type="text" id="learn-soc-title" placeholder="e.g. Knee Replacement Explained" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:.85rem"/></div>
+            <div><label style="font-size:.75rem;font-weight:700;color:var(--blue);display:block;margin-bottom:4px">Category</label>
+              <select id="learn-soc-cat" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:.85rem;background:#fff">
+                <option>Orthopaedics</option><option>Spine</option><option>Gynaecology</option><option>Plastic Surgery</option><option>General</option>
+              </select></div>
+            <button class="btn bsky" onclick="addLearnSocialLink()" style="align-self:flex-start">➕ Add to Patient Education</button>
+          </div>
+        </div>
         <div class="card">
           <div class="ct">✍️ <span id="lft">Add New Article</span></div>
           <input type="hidden" id="eidx" value="-1"/>
@@ -623,6 +640,21 @@ function addSocialLink(){
   document.getElementById('soc-url').value='';
   document.getElementById('soc-caption').value='';
 }
+
+function addLearnSocialLink(){
+  var type=document.getElementById('learn-soc-type').value;
+  var url=(document.getElementById('learn-soc-url').value||'').trim();
+  var title=(document.getElementById('learn-soc-title').value||'').trim();
+  var cat=document.getElementById('learn-soc-cat').value;
+  if(!url){toast('Please enter a URL','warn');return;}
+  if(!title){toast('Please enter a title','warn');return;}
+  var db=fdb();
+  var post={title:title,summary:'Watch on '+(type.charAt(0).toUpperCase()+type.slice(1)),category:cat,emoji:type==='youtube'?'🎬':type==='facebook'?'📘':'📸',mediaUrl:url,mediaType:type,publishedAt:new Date().toISOString(),source:'social'};
+  if(db){db.collection('svh_learn').add(post).then(function(doc){var arr=getLearn();arr.unshift(Object.assign({id:doc.id},post));sl('svh_learn',arr);renderLearn();badges();toast('✅ Added to Patient Education','success');}).catch(function(e){var arr=getLearn();arr.unshift(Object.assign({id:'sl'+Date.now()},post));sl('svh_learn',arr);renderLearn();badges();toast('✅ Added','success');});}
+  else{var arr=getLearn();arr.unshift(Object.assign({id:'sl'+Date.now()},post));sl('svh_learn',arr);renderLearn();badges();toast('✅ Added','success');}
+  document.getElementById('learn-soc-url').value='';
+  document.getElementById('learn-soc-title').value='';
+}
 function onDrop(e){e.preventDefault();document.getElementById('dz').classList.remove('drag');upFiles(e.dataTransfer.files);}
 async function upFiles(files){
   if(!files||!files.length)return;
@@ -675,7 +707,7 @@ function renderGal(){
   el.innerHTML=filtered.map(function(item){
     var src=item.url||item.data||'';
     var media=item.type==='video'?'<video src="'+src+'" preload="metadata" style="width:100%;height:100%;object-fit:cover"></video>':'<img src="'+src+'" loading="lazy"/>';
-    return'<div class="gt">'+media+'<div class="gname">'+esc(item.caption||'')+'</div><button class="gdel" onclick="delGal('+item.id+')">🗑️</button></div>';
+    return'<div class="gt" data-id="'+item.id+'">'+media+'<div class="gname">'+esc(item.caption||'')+'</div><button class="gdel" onclick="delGal(this.closest(\'.gt\').dataset.id)">🗑️</button></div>';
   }).join('');
 }
 async function delGal(id){
@@ -755,7 +787,7 @@ function renderLearn(){
   el.innerHTML=[].concat(posts).reverse().map(function(p,ri){
     var idx=posts.length-1-ri;
     var mUrl=p.mediaUrl||p.mediaData||'';
-    var thumb=mUrl?(p.mediaType==='video'?'<video src="'+mUrl+'" class="lthumb" preload="metadata"></video>':'<img src="'+mUrl+'" class="lthumb"/>'):'';
+    var stype=p.mediaType||p.source;var thumb=stype==='youtube'?'<div class="lthumb" style="background:#ff0000;display:flex;align-items:center;justify-content:center;border-radius:8px"><span style="font-size:1.6rem">▶️</span></div>':stype==='facebook'?'<div class="lthumb" style="background:#1877f2;display:flex;align-items:center;justify-content:center;border-radius:8px"><span style="font-size:1.6rem">📘</span></div>':stype==='instagram'?'<div class="lthumb" style="background:linear-gradient(135deg,#f9f,#e1306c);display:flex;align-items:center;justify-content:center;border-radius:8px"><span style="font-size:1.6rem">📸</span></div>':mUrl?(p.mediaType==='video'?'<video src="'+mUrl+'" class="lthumb" preload="metadata"></video>':'<img src="'+mUrl+'" class="lthumb"/>'):'';
     return'<div class="li">'+thumb+'<div class="linfo"><span class="lcat">'+esc(p.category)+'</span><h4>'+(p.emoji||'📄')+' '+esc(p.title)+'</h4><p>'+esc(p.summary)+'</p></div><div class="la"><button class="btn bgh bsm" onclick="editLearn('+idx+')">✏️</button><button class="btn bred bsm" onclick="delLearn('+idx+')">🗑️</button></div></div>';
   }).join('');
 }
