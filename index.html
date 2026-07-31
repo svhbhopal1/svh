@@ -1495,8 +1495,16 @@ function renderLearn(filter,btn){
     const mUrl=post.mediaUrl||post.mediaData||'';
     const mType=post.mediaType||'';
     // Card top: show media thumbnail if available, else emoji
+    const stype=post.mediaType||post.source||'';
     let cardTop='';
-    if(mUrl && mType==='image'){
+    if(stype==='youtube'){
+      const m=(mUrl||'').match(/(?:v=|youtu\.be\/)([^&?\s]+)/);
+      cardTop=m?`<div class="lc-top" style="padding:0;min-height:120px;position:relative"><iframe src="https://www.youtube.com/embed/${m[1]}" frameborder="0" allowfullscreen style="width:100%;height:120px;display:block;border:0"></iframe></div>`:`<div class="lc-top" style="background:#ff0000"><span style="font-size:2rem">▶️</span></div>`;
+    } else if(stype==='facebook'){
+      cardTop=`<div class="lc-top" style="background:#1877f2;cursor:pointer" onclick="window.open('${mUrl}','_blank')"><span style="font-size:2rem">📘</span></div>`;
+    } else if(stype==='instagram'){
+      cardTop=`<div class="lc-top" style="background:linear-gradient(135deg,#f9f,#e1306c);cursor:pointer" onclick="window.open('${mUrl}','_blank')"><span style="font-size:2rem">📸</span></div>`;
+    } else if(mUrl && mType==='image'){
       cardTop=`<div class="lc-top" style="padding:0;min-height:120px"><img src="${mUrl}" alt="${esc(post.title)}" style="width:100%;height:120px;object-fit:cover;display:block"/></div>`;
     } else if(mUrl && mType==='video'){
       cardTop=`<div class="lc-top" style="padding:0;min-height:120px;position:relative"><video src="${mUrl}" preload="metadata" muted style="width:100%;height:120px;object-fit:cover;display:block"></video><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25)"><span style="font-size:2.2rem">▶️</span></div></div>`;
